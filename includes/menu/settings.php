@@ -227,7 +227,7 @@ class class_mcq_settings_page  {
 				}
 			}
 			?>
-			<div class="updated"><p><strong><?php _e('Changes Saved.', MCQ_TEXTDOMAIN ); ?></strong></p></div>
+			<div class="updated"><p><strong><?php _e('Changes Saved.', 'mcq-test' ); ?></strong></p></div>
 			<?php
 		endif;
 	endif;
@@ -239,7 +239,7 @@ class class_mcq_settings_page  {
 
 	<div class="wrap">
 		<div id="icon-tools" class="icon32"><br></div>
-		<?php echo "<h2>".__(mcq_plugin_name.' Settings', MCQ_TEXTDOMAIN)."</h2>";?>
+		<?php echo "<h2>".__(MCQ_PLUGIN_NAME.' Settings', 'mcq-test')."</h2>";?>
 		
 		<form  method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
 			<input type="hidden" name="mcq_hidden" value="Y" />
@@ -251,8 +251,8 @@ class class_mcq_settings_page  {
 				echo $class_mcq_settings_page->mcq_settings_options_form(); 
 			?>
 			
-			<input class="button button-primary" type="submit" name="Submit" value="<?php _e('Save Changes',MCQ_TEXTDOMAIN ); ?>" />
-			<!--<div class="button button-primary" id="mcq_reset_settings" > <?php //_e('Reset Settings',MCQ_TEXTDOMAIN ); ?> </div> -->
+			<input class="button button-primary" type="submit" name="Submit" value="<?php _e('Save Changes','mcq-test' ); ?>" />
+			<!--<div class="button button-primary" id="mcq_reset_settings" > <?php //_e('Reset Settings','mcq-test' ); ?> </div> -->
 		</form>
 		
 	</div>

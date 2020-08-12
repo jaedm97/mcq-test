@@ -134,7 +134,7 @@ class class_ecommerce_shortcodes{
 		else {
 			
 			ob_start();
-			include( mcq_plugin_dir . 'templates/mcq-test.php');
+			include( MCQ_PLUGIN_DIR . 'templates/mcq-test.php');
 			return ob_get_clean();
 			
 		}
@@ -148,10 +148,10 @@ class class_ecommerce_shortcodes{
 			array(
 		), $atts);
 		
-		// include mcq_plugin_dir .'import/qs_1.php';
+		// include MCQ_PLUGIN_DIR .'import/qs_1.php';
 		
 		
-		include mcq_plugin_dir .'templates/import_questions.php';
+		include MCQ_PLUGIN_DIR .'templates/import_questions.php';
 		
 		
 		

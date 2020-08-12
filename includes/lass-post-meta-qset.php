@@ -262,7 +262,7 @@ class class_mcq_post_meta_question_set{
 			if (in_array($post_type, $post_types)) 
 			{
 				add_meta_box('mcq_metabox',
-					__('question_set Data Box',MCQ_TEXTDOMAIN),
+					__('question_set Data Box','mcq-test'),
 					array($this, 'mcq_meta_box_function'),
 					$post_type,
 					'normal',

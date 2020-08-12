@@ -15,31 +15,31 @@
 	
 	if ( ! function_exists( 'mcq_action_single_question_title_function' ) ) {
 		function mcq_action_single_question_title_function() {
-			require_once( mcq_plugin_dir. 'templates/single-question/title.php');
+			require_once( MCQ_PLUGIN_DIR. 'templates/single-question/title.php');
 		}
 	}
 	
 	if ( ! function_exists( 'mcq_action_single_question_meta_function' ) ) {
 		function mcq_action_single_question_meta_function() {
-			require_once( mcq_plugin_dir. 'templates/single-question/meta.php');
+			require_once( MCQ_PLUGIN_DIR. 'templates/single-question/meta.php');
 		}
 	}
 	
 	if ( ! function_exists( 'mcq_action_single_question_optins_function' ) ) {
 		function mcq_action_single_question_optins_function() {
-			require_once( mcq_plugin_dir. 'templates/single-question/options.php');
+			require_once( MCQ_PLUGIN_DIR. 'templates/single-question/options.php');
 		}
 	}
 	
 	if ( ! function_exists( 'mcq_action_single_question_buttons_function' ) ) {
 		function mcq_action_single_question_buttons_function() {
-			require_once( mcq_plugin_dir. 'templates/single-question/buttons.php');
+			require_once( MCQ_PLUGIN_DIR. 'templates/single-question/buttons.php');
 		}
 	}
 	
 	if ( ! function_exists( 'mcq_action_single_question_related_function' ) ) {
 		function mcq_action_single_question_related_function() {
-			require_once( mcq_plugin_dir. 'templates/single-question/related.php');
+			require_once( MCQ_PLUGIN_DIR. 'templates/single-question/related.php');
 		}
 	}
 	

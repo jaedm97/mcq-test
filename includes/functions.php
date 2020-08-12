@@ -16,11 +16,11 @@ function my_single_template($single) {
 
 	foreach((array)get_the_category() as $cat) :
 
-	if( file_exists( mcq_plugin_dir. 'templates/single-question_cat-' . $cat->slug . '.php') )
-	return mcq_plugin_dir. 'templates/single-question_cat-' . $cat->slug . '.php';
+	if( file_exists( MCQ_PLUGIN_DIR. 'templates/single-question_cat-' . $cat->slug . '.php') )
+	return MCQ_PLUGIN_DIR. 'templates/single-question_cat-' . $cat->slug . '.php';
 
-	elseif(file_exists( mcq_plugin_dir. 'templates/single-question_cat-' . $cat->term_id . '.php'))
-	return mcq_plugin_dir. 'templates/single-question_cat-' . $cat->term_id . '.php';
+	elseif(file_exists( MCQ_PLUGIN_DIR. 'templates/single-question_cat-' . $cat->term_id . '.php'))
+	return MCQ_PLUGIN_DIR. 'templates/single-question_cat-' . $cat->term_id . '.php';
 
 	endforeach;
 
@@ -207,7 +207,7 @@ function my_single_template($single) {
 		global $post;
 
 		if ($post->post_type == 'question') {
-			$single_template = mcq_plugin_dir. 'templates/single-question.php';
+			$single_template = MCQ_PLUGIN_DIR. 'templates/single-question.php';
 		}
 		return $single_template;
 	}

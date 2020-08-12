@@ -34,15 +34,15 @@ class class_mcq_question_column{
 		// $processing = ( ! isset( $_GET['qa_status'] ) || 'processing' === $this_sort ) ? 'selected' : '';
 		
 		// $dropdown        = '<select id="qa_status" name="qa_status">';
-		// $dropdown        .= "<option value='' $all>" . __( 'Any Status', MCQ_TEXTDOMAIN ) . "</option>";
-		// $dropdown        .= "<option value='pending' $pending>" . __( 'Pending', MCQ_TEXTDOMAIN ) . "</option>";
-		// $dropdown        .= "<option value='processing' $processing>" . __( 'On Discussion', MCQ_TEXTDOMAIN ) . "</option>";
-		// $dropdown        .= "<option value='hold' $hold>" . __( 'On Hold', MCQ_TEXTDOMAIN ) . "</option>";
-		// $dropdown        .= "<option value='solved' $solved>" . __( 'Solved', MCQ_TEXTDOMAIN ) . "</option>";
+		// $dropdown        .= "<option value='' $all>" . __( 'Any Status', 'mcq-test' ) . "</option>";
+		// $dropdown        .= "<option value='pending' $pending>" . __( 'Pending', 'mcq-test' ) . "</option>";
+		// $dropdown        .= "<option value='processing' $processing>" . __( 'On Discussion', 'mcq-test' ) . "</option>";
+		// $dropdown        .= "<option value='hold' $hold>" . __( 'On Hold', 'mcq-test' ) . "</option>";
+		// $dropdown        .= "<option value='solved' $solved>" . __( 'Solved', 'mcq-test' ) . "</option>";
 		// $dropdown        .= '</select>';
 		
 		$dropdown = '<select name="question_category">';
-		$dropdown .= '<option value="">'.__('Select category',MCQ_TEXTDOMAIN).'</option>';
+		$dropdown .= '<option value="">'.__('Select category','mcq-test').'</option>';
 		
 		foreach( mcq_get_categories() as $cat_id => $cat_info ) { ksort($cat_info);
 			foreach( $cat_info as $key => $value ) {
@@ -109,13 +109,13 @@ class class_mcq_question_column{
 		foreach ( $columns as $col_id => $col_label ) { $count++;
 
 			if ( $count == 3 ) 
-			$new['mcq-correct'] = '' . esc_html__( 'Options / Answer', MCQ_TEXTDOMAIN );
+			$new['mcq-correct'] = '' . esc_html__( 'Options / Answer', 'mcq-test' );
 			
 			if( 'title' === $col_id ) {
-				$new[$col_id] = '<i class="fa fa-question-circle fs_18"></i> ' . esc_html__( 'Question Title', MCQ_TEXTDOMAIN );
+				$new[$col_id] = '<i class="fa fa-question-circle fs_18"></i> ' . esc_html__( 'Question Title', 'mcq-test' );
 			
 			} elseif( 'taxonomy-question_cat' === $col_id ) {
-				$new[$col_id] = '' . esc_html__( 'Questions Categories', MCQ_TEXTDOMAIN );
+				$new[$col_id] = '' . esc_html__( 'Questions Categories', 'mcq-test' );
 			
 			} else {
 				$new[ $col_id ] = $col_label;
@@ -139,7 +139,7 @@ class class_mcq_question_column{
 					$html .= '<span class="mcq_bk_option">'.$value.' </span> | ';
 			}
 			
-			echo __( substr($html, 0, -2), MCQ_TEXTDOMAIN );
+			echo __( substr($html, 0, -2), 'mcq-test' );
 			break;
 
 		case 'qa-activity':

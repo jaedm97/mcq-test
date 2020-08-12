@@ -17,7 +17,7 @@ class class_mcq_post_meta_question{
 	public function meta_boxes_mcq_question($post_type) {
 		$post_types = array('question');
 		if (in_array($post_type, $post_types)) {
-			add_meta_box('mcq_metabox',__('Question Option Box',MCQ_TEXTDOMAIN),array($this, 'mcq_meta_box_function'),$post_type,'normal','high');
+			add_meta_box('mcq_metabox',__('Question Option Box','mcq-test'),array($this, 'mcq_meta_box_function'),$post_type,'normal','high');
 		}
 	}
 	

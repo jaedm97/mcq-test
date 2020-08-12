@@ -19,29 +19,29 @@ class class_mcq_post_types{
 	public function mcq_posttype_participant(){
 		if ( post_type_exists( "participant" ) ) return;
 
-		$singular  = __( 'Participant', MCQ_TEXTDOMAIN );
-		$plural    = __( 'Participants', MCQ_TEXTDOMAIN );
+		$singular  = __( 'Participant', 'mcq-test' );
+		$plural    = __( 'Participants', 'mcq-test' );
 
 		register_post_type( "participant",
 			apply_filters( "register_post_type_participant", array(
 				'labels' => array(
 					'name' 					=> $plural,
 					'singular_name' 		=> $singular,
-					'menu_name'             => __( $singular, MCQ_TEXTDOMAIN ),
-					'all_items'             => sprintf( __( 'All %s', MCQ_TEXTDOMAIN ), $plural ),
-					'add_new' 				=> __( 'Add New', MCQ_TEXTDOMAIN ),
-					'add_new_item' 			=> sprintf( __( 'Add %s', MCQ_TEXTDOMAIN ), $singular ),
-					'edit' 					=> __( 'Edit', MCQ_TEXTDOMAIN ),
-					'edit_item' 			=> sprintf( __( 'Edit %s', MCQ_TEXTDOMAIN ), $singular ),
-					'new_item' 				=> sprintf( __( 'New %s', MCQ_TEXTDOMAIN ), $singular ),
-					'view' 					=> sprintf( __( 'View %s', MCQ_TEXTDOMAIN ), $singular ),
-					'view_item' 			=> sprintf( __( 'View %s', MCQ_TEXTDOMAIN ), $singular ),
-					'search_items' 			=> sprintf( __( 'Search %s', MCQ_TEXTDOMAIN ), $plural ),
-					'not_found' 			=> sprintf( __( 'No %s found', MCQ_TEXTDOMAIN ), $plural ),
-					'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', MCQ_TEXTDOMAIN ), $plural ),
-					'parent' 				=> sprintf( __( 'Parent %s', MCQ_TEXTDOMAIN ), $singular )
+					'menu_name'             => __( $singular, 'mcq-test' ),
+					'all_items'             => sprintf( __( 'All %s', 'mcq-test' ), $plural ),
+					'add_new' 				=> __( 'Add New', 'mcq-test' ),
+					'add_new_item' 			=> sprintf( __( 'Add %s', 'mcq-test' ), $singular ),
+					'edit' 					=> __( 'Edit', 'mcq-test' ),
+					'edit_item' 			=> sprintf( __( 'Edit %s', 'mcq-test' ), $singular ),
+					'new_item' 				=> sprintf( __( 'New %s', 'mcq-test' ), $singular ),
+					'view' 					=> sprintf( __( 'View %s', 'mcq-test' ), $singular ),
+					'view_item' 			=> sprintf( __( 'View %s', 'mcq-test' ), $singular ),
+					'search_items' 			=> sprintf( __( 'Search %s', 'mcq-test' ), $plural ),
+					'not_found' 			=> sprintf( __( 'No %s found', 'mcq-test' ), $plural ),
+					'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', 'mcq-test' ), $plural ),
+					'parent' 				=> sprintf( __( 'Parent %s', 'mcq-test' ), $singular )
 				),
-				'description' => sprintf( __( 'This is where you can create and manage %s.', MCQ_TEXTDOMAIN ), $plural ),
+				'description' => sprintf( __( 'This is where you can create and manage %s.', 'mcq-test' ), $plural ),
 				'public' 				=> true,
 				'show_ui' 				=> true,
 				'capability_type' 		=> 'post',
@@ -61,29 +61,29 @@ class class_mcq_post_types{
 	public function mcq_posttype_question(){
 		if ( post_type_exists( "question" ) ) return;
 
-		$singular  = __( 'Question', MCQ_TEXTDOMAIN );
-		$plural    = __( 'Questions', MCQ_TEXTDOMAIN );
+		$singular  = __( 'Question', 'mcq-test' );
+		$plural    = __( 'Questions', 'mcq-test' );
 
 		register_post_type( "question",
 			apply_filters( "register_post_type_question", array(
 				'labels' => array(
 					'name' 					=> $plural,
 					'singular_name' 		=> $singular,
-					'menu_name'             => __( $singular, MCQ_TEXTDOMAIN ),
-					'all_items'             => sprintf( __( 'All %s', MCQ_TEXTDOMAIN ), $plural ),
-					'add_new' 				=> __( 'Add New', MCQ_TEXTDOMAIN ),
-					'add_new_item' 			=> sprintf( __( 'Add %s', MCQ_TEXTDOMAIN ), $singular ),
-					'edit' 					=> __( 'Edit', MCQ_TEXTDOMAIN ),
-					'edit_item' 			=> sprintf( __( 'Edit %s', MCQ_TEXTDOMAIN ), $singular ),
-					'new_item' 				=> sprintf( __( 'New %s', MCQ_TEXTDOMAIN ), $singular ),
-					'view' 					=> sprintf( __( 'View %s', MCQ_TEXTDOMAIN ), $singular ),
-					'view_item' 			=> sprintf( __( 'View %s', MCQ_TEXTDOMAIN ), $singular ),
-					'search_items' 			=> sprintf( __( 'Search %s', MCQ_TEXTDOMAIN ), $plural ),
-					'not_found' 			=> sprintf( __( 'No %s found', MCQ_TEXTDOMAIN ), $plural ),
-					'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', MCQ_TEXTDOMAIN ), $plural ),
-					'parent' 				=> sprintf( __( 'Parent %s', MCQ_TEXTDOMAIN ), $singular )
+					'menu_name'             => __( $singular, 'mcq-test' ),
+					'all_items'             => sprintf( __( 'All %s', 'mcq-test' ), $plural ),
+					'add_new' 				=> __( 'Add New', 'mcq-test' ),
+					'add_new_item' 			=> sprintf( __( 'Add %s', 'mcq-test' ), $singular ),
+					'edit' 					=> __( 'Edit', 'mcq-test' ),
+					'edit_item' 			=> sprintf( __( 'Edit %s', 'mcq-test' ), $singular ),
+					'new_item' 				=> sprintf( __( 'New %s', 'mcq-test' ), $singular ),
+					'view' 					=> sprintf( __( 'View %s', 'mcq-test' ), $singular ),
+					'view_item' 			=> sprintf( __( 'View %s', 'mcq-test' ), $singular ),
+					'search_items' 			=> sprintf( __( 'Search %s', 'mcq-test' ), $plural ),
+					'not_found' 			=> sprintf( __( 'No %s found', 'mcq-test' ), $plural ),
+					'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', 'mcq-test' ), $plural ),
+					'parent' 				=> sprintf( __( 'Parent %s', 'mcq-test' ), $singular )
 				),
-				'description' => sprintf( __( 'This is where you can create and manage %s.', MCQ_TEXTDOMAIN ), $plural ),
+				'description' => sprintf( __( 'This is where you can create and manage %s.', 'mcq-test' ), $plural ),
 				'public' 				=> true,
 				'show_ui' 				=> true,
 				'capability_type' 		=> 'post',
@@ -99,8 +99,8 @@ class class_mcq_post_types{
 			) )
 		);
 		
-		$singular  = __( 'Question Category', MCQ_TEXTDOMAIN );
-		$plural    = __( 'Question Categories', MCQ_TEXTDOMAIN );
+		$singular  = __( 'Question Category', 'mcq-test' );
+		$plural    = __( 'Question Categories', 'mcq-test' );
 		
 			register_taxonomy( "question_cat",
 				apply_filters( 'register_taxonomy_product_group_object_type', array( 'question' ) ),
@@ -113,14 +113,14 @@ class class_mcq_post_types{
 						'name'              => $plural,
 						'singular_name'     => $singular,
 						'menu_name'         => ucwords( $plural ),
-						'search_items'      => sprintf( __( 'Search %s', MCQ_TEXTDOMAIN ), $plural ),
-						'all_items'         => sprintf( __( 'All %s', MCQ_TEXTDOMAIN ), $plural ),
-						'parent_item'       => sprintf( __( 'Parent %s', MCQ_TEXTDOMAIN ), $singular ),
-						'parent_item_colon' => sprintf( __( 'Parent %s:', MCQ_TEXTDOMAIN ), $singular ),
-						'edit_item'         => sprintf( __( 'Edit %s', MCQ_TEXTDOMAIN ), $singular ),
-						'update_item'       => sprintf( __( 'Update %s', MCQ_TEXTDOMAIN ), $singular ),
-						'add_new_item'      => sprintf( __( 'Add New %s', MCQ_TEXTDOMAIN ), $singular ),
-						'new_item_name'     => sprintf( __( 'New %s Name', MCQ_TEXTDOMAIN ),  $singular )
+						'search_items'      => sprintf( __( 'Search %s', 'mcq-test' ), $plural ),
+						'all_items'         => sprintf( __( 'All %s', 'mcq-test' ), $plural ),
+						'parent_item'       => sprintf( __( 'Parent %s', 'mcq-test' ), $singular ),
+						'parent_item_colon' => sprintf( __( 'Parent %s:', 'mcq-test' ), $singular ),
+						'edit_item'         => sprintf( __( 'Edit %s', 'mcq-test' ), $singular ),
+						'update_item'       => sprintf( __( 'Update %s', 'mcq-test' ), $singular ),
+						'add_new_item'      => sprintf( __( 'Add New %s', 'mcq-test' ), $singular ),
+						'new_item_name'     => sprintf( __( 'New %s Name', 'mcq-test' ),  $singular )
 	            	),
 		            'show_ui' 				=> true,
 		            'public' 	     		=> true,
@@ -138,29 +138,29 @@ class class_mcq_post_types{
 	public function mcq_posttype_question_set(){
 		if ( post_type_exists( "question_set" ) ) return;
 
-		$singular  = __( 'Q Set', MCQ_TEXTDOMAIN );
-		$plural    = __( 'Q Sets', MCQ_TEXTDOMAIN );
+		$singular  = __( 'Q Set', 'mcq-test' );
+		$plural    = __( 'Q Sets', 'mcq-test' );
 
 		register_post_type( "question_set",
 			apply_filters( "register_post_type_question_set", array(
 				'labels' => array(
 					'name' 					=> $plural,
 					'singular_name' 		=> $singular,
-					'menu_name'             => __( $singular, MCQ_TEXTDOMAIN ),
-					'all_items'             => sprintf( __( 'All %s', MCQ_TEXTDOMAIN ), $plural ),
-					'add_new' 				=> __( 'Add New', MCQ_TEXTDOMAIN ),
-					'add_new_item' 			=> sprintf( __( 'Add %s', MCQ_TEXTDOMAIN ), $singular ),
-					'edit' 					=> __( 'Edit', MCQ_TEXTDOMAIN ),
-					'edit_item' 			=> sprintf( __( 'Edit %s', MCQ_TEXTDOMAIN ), $singular ),
-					'new_item' 				=> sprintf( __( 'New %s', MCQ_TEXTDOMAIN ), $singular ),
-					'view' 					=> sprintf( __( 'View %s', MCQ_TEXTDOMAIN ), $singular ),
-					'view_item' 			=> sprintf( __( 'View %s', MCQ_TEXTDOMAIN ), $singular ),
-					'search_items' 			=> sprintf( __( 'Search %s', MCQ_TEXTDOMAIN ), $plural ),
-					'not_found' 			=> sprintf( __( 'No %s found', MCQ_TEXTDOMAIN ), $plural ),
-					'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', MCQ_TEXTDOMAIN ), $plural ),
-					'parent' 				=> sprintf( __( 'Parent %s', MCQ_TEXTDOMAIN ), $singular )
+					'menu_name'             => __( $singular, 'mcq-test' ),
+					'all_items'             => sprintf( __( 'All %s', 'mcq-test' ), $plural ),
+					'add_new' 				=> __( 'Add New', 'mcq-test' ),
+					'add_new_item' 			=> sprintf( __( 'Add %s', 'mcq-test' ), $singular ),
+					'edit' 					=> __( 'Edit', 'mcq-test' ),
+					'edit_item' 			=> sprintf( __( 'Edit %s', 'mcq-test' ), $singular ),
+					'new_item' 				=> sprintf( __( 'New %s', 'mcq-test' ), $singular ),
+					'view' 					=> sprintf( __( 'View %s', 'mcq-test' ), $singular ),
+					'view_item' 			=> sprintf( __( 'View %s', 'mcq-test' ), $singular ),
+					'search_items' 			=> sprintf( __( 'Search %s', 'mcq-test' ), $plural ),
+					'not_found' 			=> sprintf( __( 'No %s found', 'mcq-test' ), $plural ),
+					'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', 'mcq-test' ), $plural ),
+					'parent' 				=> sprintf( __( 'Parent %s', 'mcq-test' ), $singular )
 				),
-				'description' => sprintf( __( 'This is where you can create and manage %s.', MCQ_TEXTDOMAIN ), $plural ),
+				'description' => sprintf( __( 'This is where you can create and manage %s.', 'mcq-test' ), $plural ),
 				'public' 				=> true,
 				'show_ui' 				=> true,
 				'capability_type' 		=> 'post',
@@ -180,29 +180,29 @@ class class_mcq_post_types{
 	public function mcq_posttype_given_test(){
 		if ( post_type_exists( "given_test" ) ) return;
 
-		$singular  = __( 'Given Test', MCQ_TEXTDOMAIN );
-		$plural    = __( 'Given Tests', MCQ_TEXTDOMAIN );
+		$singular  = __( 'Given Test', 'mcq-test' );
+		$plural    = __( 'Given Tests', 'mcq-test' );
 
 		register_post_type( "given_test",
 			apply_filters( "register_post_type_given_test", array(
 				'labels' => array(
 					'name' 					=> $plural,
 					'singular_name' 		=> $singular,
-					'menu_name'             => __( $singular, MCQ_TEXTDOMAIN ),
-					'all_items'             => sprintf( __( 'All %s', MCQ_TEXTDOMAIN ), $plural ),
-					'add_new' 				=> __( 'Add New', MCQ_TEXTDOMAIN ),
-					'add_new_item' 			=> sprintf( __( 'Add %s', MCQ_TEXTDOMAIN ), $singular ),
-					'edit' 					=> __( 'Edit', MCQ_TEXTDOMAIN ),
-					'edit_item' 			=> sprintf( __( 'Edit %s', MCQ_TEXTDOMAIN ), $singular ),
-					'new_item' 				=> sprintf( __( 'New %s', MCQ_TEXTDOMAIN ), $singular ),
-					'view' 					=> sprintf( __( 'View %s', MCQ_TEXTDOMAIN ), $singular ),
-					'view_item' 			=> sprintf( __( 'View %s', MCQ_TEXTDOMAIN ), $singular ),
-					'search_items' 			=> sprintf( __( 'Search %s', MCQ_TEXTDOMAIN ), $plural ),
-					'not_found' 			=> sprintf( __( 'No %s found', MCQ_TEXTDOMAIN ), $plural ),
-					'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', MCQ_TEXTDOMAIN ), $plural ),
-					'parent' 				=> sprintf( __( 'Parent %s', MCQ_TEXTDOMAIN ), $singular )
+					'menu_name'             => __( $singular, 'mcq-test' ),
+					'all_items'             => sprintf( __( 'All %s', 'mcq-test' ), $plural ),
+					'add_new' 				=> __( 'Add New', 'mcq-test' ),
+					'add_new_item' 			=> sprintf( __( 'Add %s', 'mcq-test' ), $singular ),
+					'edit' 					=> __( 'Edit', 'mcq-test' ),
+					'edit_item' 			=> sprintf( __( 'Edit %s', 'mcq-test' ), $singular ),
+					'new_item' 				=> sprintf( __( 'New %s', 'mcq-test' ), $singular ),
+					'view' 					=> sprintf( __( 'View %s', 'mcq-test' ), $singular ),
+					'view_item' 			=> sprintf( __( 'View %s', 'mcq-test' ), $singular ),
+					'search_items' 			=> sprintf( __( 'Search %s', 'mcq-test' ), $plural ),
+					'not_found' 			=> sprintf( __( 'No %s found', 'mcq-test' ), $plural ),
+					'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', 'mcq-test' ), $plural ),
+					'parent' 				=> sprintf( __( 'Parent %s', 'mcq-test' ), $singular )
 				),
-				'description' => sprintf( __( 'This is where you can create and manage %s.', MCQ_TEXTDOMAIN ), $plural ),
+				'description' => sprintf( __( 'This is where you can create and manage %s.', 'mcq-test' ), $plural ),
 				'public' 				=> true,
 				'show_ui' 				=> true,
 				'capability_type' 		=> 'post',

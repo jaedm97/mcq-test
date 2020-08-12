@@ -281,7 +281,7 @@ class class_mcq_post_meta_participant{
 			if (in_array($post_type, $post_types)) 
 			{
 				add_meta_box('mcq_metabox',
-					__('Participant Data Box',MCQ_TEXTDOMAIN),
+					__('Participant Data Box','mcq-test'),
 					array($this, 'mcq_meta_box_function'),
 					$post_type,
 					'normal',
