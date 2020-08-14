@@ -1,0 +1,111 @@
+/**
+ * Admin Styles
+ */
+
+
+.mcq-button-admin {
+    background: #607D8B;
+    color: #fff;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.post-type-question input[name="post_title"],
+.post-type-question input[name="post_title"]:active,
+.post-type-question input[name="post_title"]:focus {
+    border: none;
+    box-shadow: none;
+    height: 60px !important;
+    padding: 3px 10px !important;
+}
+
+.post-type-question #edit-slug-box {
+    padding: 0 !important;
+    margin-top: 12px !important;
+}
+
+.post-type-question #edit-slug-buttons {
+    float: right;
+}
+
+.post-type-question #sample-permalink > a {
+    text-decoration: none;
+}
+
+
+#question_meta {
+    border: none;
+    background: #f1f1f1;
+    box-shadow: none;
+}
+
+#question_meta .inside {
+    margin: 0;
+    padding: 0;
+}
+
+#question_meta .postbox-header {
+    display: none;
+}
+
+.question-options {
+    margin-top: 30px;
+}
+
+.question-option {
+    display: flex;
+    background: #fff;
+    margin-bottom: 30px;
+    align-items: center;
+    cursor: move;
+    max-width: 360px;
+}
+
+.question-option input[type="text"],
+.question-option input[type="text"]:active,
+.question-option input[type="text"]:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    height: 48px;
+    font-size: 16px;
+    width: 280px;
+}
+
+.question-option .mcq-option-remove,
+.question-option .mcq-option-correct {
+    color: #fff;
+    font-size: 18px;
+    line-height: 24px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.question-option .mcq-option-remove {
+    cursor: pointer;
+    margin-right: 5px;
+    background: #ec6996;
+}
+
+.question-option .mcq-option-remove:hover {
+    background: #f93175;
+}
+
+
+.question-option .mcq-option-correct {
+    background: #b1b1b1;
+}
+
+.question-option .mcq-option-correct.correct {
+    background: #4caf50;
+}
+
+.question-option .mcq-option-correct input[type="checkbox"] {
+    display: none;
+}
