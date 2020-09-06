@@ -23,6 +23,34 @@ if ( ! class_exists( 'MCQ_Hooks' ) ) {
 
 			add_action( 'init', array( $this, 'register_everything' ) );
 			add_action( 'wp_ajax_get_option_field', array( $this, 'get_option_field' ) );
+			add_filter( 'the_content', array( $this, 'render_question_content' ) );
+
+			add_action( 'mcq-importer', array( $this, 'render_importer' ) );
+		}
+
+		/**
+		 * @param $content
+		 *
+		 * @return false|string
+		 */
+		function render_question_content( $content ) {
+
+			if ( is_singular( 'question' ) ) {
+				ob_start();
+				mcq_get_template( 'single-question.php' );
+
+				return ob_get_clean();
+			}
+
+			return $content;
+		}
+
+
+		/**
+		 * Render importer in backend
+		 */
+		function render_importer() {
+			mcq_get_template( 'importer-main.php' );
 		}
 
 
@@ -37,12 +65,17 @@ if ( ! class_exists( 'MCQ_Hooks' ) ) {
 
 
 		/**
-		 * Render importer in frontend as short code [mcq-importer]
+		 * Render All questions
+		 *
+		 * @return false|string
 		 */
-		function render_importer() {
-			mcq_get_template( 'importer-main.php' );
-		}
+		function render_questions() {
 
+			ob_start();
+			mcq_get_template( 'all-questions.php' );
+
+			return ob_get_clean();
+		}
 
 		/**
 		 * Register Post Types and Settings
@@ -85,7 +118,7 @@ if ( ! class_exists( 'MCQ_Hooks' ) ) {
 				),
 			) );
 
-			mcq_test()->PB_Settings()->register_shortcode( 'mcq-importer', array( $this, 'render_importer' ) );
+			mcq_test()->PB_Settings()->register_shortcode( 'mcq-questions', array( $this, 'render_questions' ) );
 		}
 
 

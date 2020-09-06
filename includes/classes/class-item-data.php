@@ -2,20 +2,16 @@
 /**
  * Class Item Data
  *
- * @author Pluginbazar
- * @package includes/classes/class-item-data
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}  // if direct access
+defined( 'ABSPATH' ) || exit;
 
 
-if ( ! class_exists( 'WPP_Item_data' ) ) {
+if ( ! class_exists( 'MCQ_Item_data' ) ) {
 	/**
-	 * Class WPPS_Hooks
+	 * Class MCQ_Item_data
 	 */
-	class WPP_Item_data {
+	class MCQ_Item_data {
 
 
 		/**
@@ -35,7 +31,15 @@ if ( ! class_exists( 'WPP_Item_data' ) ) {
 
 
 		/**
-		 * WPPS_Poll constructor.
+		 * Item Taxonomy
+		 *
+		 * @var null
+		 */
+		public $item_taxonomy = null;
+
+
+		/**
+		 * MCQ_Item_data constructor.
 		 *
 		 * @param bool $item_id
 		 */
@@ -54,7 +58,7 @@ if ( ! class_exists( 'WPP_Item_data' ) ) {
 		 */
 		function get_published_date( $format = 'U' ) {
 
-			return apply_filters( 'wpps_filters_published_date', get_the_date( $format, $this->get_id() ) );
+			return apply_filters( 'mcq_filters_published_date', get_the_date( $format, $this->get_id() ) );
 		}
 
 
@@ -105,7 +109,7 @@ if ( ! class_exists( 'WPP_Item_data' ) ) {
 		 */
 		function get_permalink() {
 
-			return apply_filters( 'wpps_filter_permalink', get_the_permalink( $this->get_id() ) );
+			return apply_filters( 'mcq_filter_permalink', get_the_permalink( $this->get_id() ) );
 		}
 
 
@@ -138,7 +142,7 @@ if ( ! class_exists( 'WPP_Item_data' ) ) {
 			$_thumb_url   = ! empty( $_thumb_url ) ? $_thumb_url : array();
 			$thumb_url    = reset( $_thumb_url );
 
-			return apply_filters( 'wpps_filters_thumbnail', $thumb_url, $thumbnail_id, $size );
+			return apply_filters( 'mcq_filters_thumbnail', $thumb_url, $thumbnail_id, $size );
 		}
 
 
@@ -152,9 +156,9 @@ if ( ! class_exists( 'WPP_Item_data' ) ) {
 		 */
 		function get_meta( $meta_key = '', $default = '' ) {
 
-			$meta_value = wpp()->get_meta( $meta_key, $this->get_id(), $default );
+			$meta_value = mcq_test()->get_meta( $meta_key, $this->get_id(), $default );
 
-			return apply_filters( 'wpps_filters_get_meta', $meta_value, $meta_key, $this );
+			return apply_filters( 'mcq_filters_get_meta', $meta_value, $meta_key, $this );
 		}
 
 
@@ -168,14 +172,15 @@ if ( ! class_exists( 'WPP_Item_data' ) ) {
 		 */
 		function update_meta( $meta_key = '', $meta_value = '' ) {
 
-			do_action( 'wpps_before_update_item_meta', $meta_key, $meta_value, $this );
+			do_action( 'mcq_before_update_item_meta', $meta_key, $meta_value, $this );
 
 			$ret = update_post_meta( $this->get_id(), $meta_key, $meta_value );
 
-			do_action( 'wpps_after_update_item_meta', $meta_key, $meta_value, $this );
+			do_action( 'mcq_after_update_item_meta', $meta_key, $meta_value, $this );
 
 			return $ret;
 		}
+
 
 		/**
 		 * Return content
@@ -193,7 +198,7 @@ if ( ! class_exists( 'WPP_Item_data' ) ) {
 				$content = wp_trim_words( $content, $length, $more );
 			}
 
-			return apply_filters( 'wpp_filters_poll_content', $content );
+			return apply_filters( 'mcq_filters_poll_content', $content );
 		}
 
 
@@ -204,7 +209,7 @@ if ( ! class_exists( 'WPP_Item_data' ) ) {
 		 */
 		function has_content() {
 
-			if( empty( $this->get_content() ) ) {
+			if ( empty( $this->get_content() ) ) {
 				return false;
 			}
 
@@ -219,8 +224,9 @@ if ( ! class_exists( 'WPP_Item_data' ) ) {
 		 */
 		function get_name() {
 
-			return apply_filters( 'wpps_filters_item_name', $this->item_post->post_title );
+			return apply_filters( 'mcq_filters_item_name', $this->item_post->post_title );
 		}
+
 
 		/**
 		 * Return ID
@@ -244,6 +250,42 @@ if ( ! class_exists( 'WPP_Item_data' ) ) {
 
 
 		/**
+		 * Return terms
+		 *
+		 * @param array $args
+		 *
+		 * @return mixed|void
+		 */
+		function get_terms( $args = array() ) {
+
+			$defaults    = array( 'fields' => 'all' );
+			$parsed_args = wp_parse_args( $args, $defaults );
+
+			return apply_filters( 'mcq_filters_get_item_terms', wp_get_post_terms( $this->get_id(), $this->get_taxonomy(), $parsed_args ) );
+		}
+
+
+		/**
+		 * Return item taxonomy
+		 *
+		 * @return mixed|void
+		 */
+		function get_taxonomy() {
+			return apply_filters( 'mcq_filters_taxonomy', $this->item_taxonomy );
+		}
+
+
+		/**
+		 * Set item taxonomy
+		 *
+		 * @param $taxonomy
+		 */
+		function set_taxonomy( $taxonomy ) {
+			$this->item_taxonomy = $taxonomy;
+		}
+
+
+		/**
 		 * Initialize item
 		 *
 		 * @param $item_id
@@ -255,5 +297,5 @@ if ( ! class_exists( 'WPP_Item_data' ) ) {
 		}
 	}
 
-	new WPP_Item_data();
+	new MCQ_Item_data();
 }

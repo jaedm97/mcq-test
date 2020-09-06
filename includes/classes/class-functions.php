@@ -95,7 +95,7 @@ if ( ! function_exists( 'MCQ_Functions' ) ) {
 				$is_success = $is_success ? 'success' : 'error';
 			}
 
-			printf( '<div class="notice notice-%s %s"><p>%s</p></div>', $is_success, $is_dismissible ? 'is-dismissible' : '', $message );
+			printf( '<div class="mcq-notice notice notice-%s %s"><p>%s</p></div>', $is_success, $is_dismissible ? 'is-dismissible' : '', $message );
 		}
 
 

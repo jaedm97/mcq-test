@@ -222,39 +222,149 @@ if ( ! function_exists( 'render_single_option_field' ) ) {
 	/**
 	 * Render single option field
 	 *
-	 * @param string $option
-	 * @param array $question_answers
+	 * @param string $option_index
+	 * @param array $option
 	 */
-	function render_single_option_field( $option = '', $question_answers = array() ) {
+	function render_single_option_field( $option_index = false, $option = array() ) {
+
+		$option_index = ! $option_index ? current_time( 'U' ) : $option_index;
+		$option_value = mcq_test()->get_args_option( 'value', '', $option );
+		$is_correct   = mcq_test()->get_args_option( 'is_correct', '', $option );
+		$is_correct   = $is_correct === 'on' || $is_correct ? 'checked' : '';
 
 		ob_start();
 
-		printf( '<input type="text" name="_question_options[]" placeholder="Write Option..." value="%s"/>', $option );
+		printf( '<input type="text" name="_question_options[%s][value]" placeholder="Write Option..." value="%s"/>', $option_index, $option_value );
 		printf( '<span class="dashicons dashicons-no-alt mcq-option-remove"></span>' );
-		printf( '<label class="dashicons dashicons-saved mcq-option-correct %s"><input type="checkbox" name="_question_answers[]" value="%s"></label>',
-			is_array( $question_answers ) && in_array( $option, $question_answers ) ? 'correct' : '', $option
+		printf( '<label class="dashicons dashicons-saved mcq-option-correct %1$s"><input type="checkbox" name="_question_options[%2$s][is_correct]" %1$s></label>',
+			$is_correct, $option_index
 		);
 		printf( '<div class="question-option">%s</div>', ob_get_clean() );
 	}
 }
 
 
-add_filter( 'single_template', 'my_single_template' );
+if ( ! function_exists( 'mcq_parse_questions_from_html' ) ) {
+	function mcq_parse_questions_from_html( $html_content = '' ) {
+		$html_content = stripslashes( $html_content );
+		$doc          = new DOMDocument();
 
-function my_single_template( $single ) {
+		libxml_use_internal_errors( true );
+		$doc->loadHTML( mb_convert_encoding( $html_content, 'HTML-ENTITIES', 'UTF-8' ) );
 
-	global $wp_query, $post;
+		$xpath     = new DomXPath( $doc );
+		$nodeList  = $xpath->query( '//div[@class="show-question"]' );
+		$questions = array();
 
-	foreach ( (array) get_the_category() as $cat ) :
+		for ( $index = 0; $index < $nodeList->length; $index ++ ) {
 
-		if ( file_exists( MCQ_PLUGIN_DIR . 'templates/single-question_cat-' . $cat->slug . '.php' ) ) {
-			return MCQ_PLUGIN_DIR . 'templates/single-question_cat-' . $cat->slug . '.php';
-		} elseif ( file_exists( MCQ_PLUGIN_DIR . 'templates/single-question_cat-' . $cat->term_id . '.php' ) ) {
-			return MCQ_PLUGIN_DIR . 'templates/single-question_cat-' . $cat->term_id . '.php';
+			$this_node  = $nodeList->item( $index );
+			$this_node  = $this_node->ownerDocument->saveHTML( $this_node );
+			$nested_doc = new DOMDocument();
+
+			$nested_doc->loadHTML( mb_convert_encoding( $this_node, 'HTML-ENTITIES', 'UTF-8' ) );
+
+			$nested_xpath = new DomXPath( $nested_doc );
+			$correct_node = $nested_xpath->query( '//li[@class="answer correct-answer"]' );
+			$option_nodes = $nested_xpath->query( '//li[@class="answer"]' );
+			$title_node   = $nested_doc->getElementsByTagName( 'strong' );
+			$options      = array();
+
+			if ( isset( $correct_node->item( 0 )->nodeValue ) ) {
+				foreach ( $option_nodes as $option_node ) {
+					$options[] = array(
+						'value'      => trim( $option_node->nodeValue ),
+						'is_correct' => false,
+					);
+				}
+				$options[] = array(
+					'value'      => trim( $correct_node->item( 0 )->nodeValue ),
+					'is_correct' => true,
+				);
+			}
+
+			if ( isset( $title_node->item( 0 )->nodeValue ) ) {
+				shuffle( $options );
+				$questions[] = array(
+					'title'   => trim( $title_node->item( 0 )->nodeValue ),
+					'options' => $options,
+				);
+			}
 		}
 
-	endforeach;
+		return $questions;
+	}
+}
 
+
+if ( ! function_exists( 'mcq_parse_questions_from_mcqstudybd' ) ) {
+	function mcq_parse_questions_from_mcqstudybd( $html_content = '' ) {
+		$html_content = stripslashes( $html_content );
+		$doc          = new DOMDocument();
+
+		libxml_use_internal_errors( true );
+		$doc->loadHTML( mb_convert_encoding( $html_content, 'HTML-ENTITIES', 'UTF-8' ) );
+
+		$xpath     = new DomXPath( $doc );
+		$nodeList  = $xpath->query( '//fieldset[@class="wrongans"]' );
+		$questions = array();
+
+		for ( $index = 0; $index < $nodeList->length; $index ++ ) {
+
+			$this_node  = $nodeList->item( $index );
+			$this_node  = $this_node->ownerDocument->saveHTML( $this_node );
+			$nested_doc = new DOMDocument();
+
+			$nested_doc->loadHTML( mb_convert_encoding( $this_node, 'HTML-ENTITIES', 'UTF-8' ) );
+
+			$nested_xpath = new DomXPath( $nested_doc );
+			$correct_node = $nested_xpath->query( '//label[@id="cl"]' );
+			$option_nodes = $nested_xpath->query( '//label[@class="radio"]' );
+			$title_node   = $nested_doc->getElementsByTagName( 'legend' );
+			$_q_title     = trim( $title_node->item( 0 )->nodeValue );
+			$_q_title     = explode( '.', $_q_title );
+			$q_title      = isset( $_q_title[1] ) ? trim( $_q_title[1] ) : '';
+			$options      = array();
+
+			if ( isset( $correct_node->item( 0 )->nodeValue ) ) {
+				foreach ( $option_nodes as $option_node ) {
+					$options[] = array(
+						'value'      => trim( $option_node->nodeValue ),
+						'is_correct' => $option_node->getAttribute( 'id' ) === 'cl' ? true : false,
+					);
+				}
+			}
+
+			if ( ! empty( $q_title ) ) {
+				shuffle( $options );
+				$questions[] = array(
+					'title'   => $q_title,
+					'options' => $options,
+				);
+			}
+		}
+
+		return $questions;
+	}
+}
+
+
+if ( ! function_exists( 'mcq_get_question' ) ) {
+	/**
+	 * Return Question class
+	 *
+	 * @param false $question_id
+	 *
+	 * @return false|MCQ_Question
+	 */
+	function mcq_get_question( $question_id = false ) {
+
+		if ( get_post_type( $question_id ) !== 'question' ) {
+			return false;
+		}
+
+		return new MCQ_Question( $question_id );
+	}
 }
 
 
@@ -442,19 +552,6 @@ function mcq_toast_message() {
 }
 
 add_action( 'wp_footer', 'mcq_toast_message' );
-
-
-function mcq_single_question_template( $single_template ) {
-	global $post;
-
-	if ( $post->post_type == 'question' ) {
-		$single_template = MCQ_PLUGIN_DIR . 'templates/single-question.php';
-	}
-
-	return $single_template;
-}
-
-add_filter( 'single_template', 'mcq_single_question_template' );
 
 
 add_action( 'admin_menu', 'mcq_menu_pages', 10 );

@@ -32,10 +32,6 @@ if ( ! class_exists( 'MCQ_Meta_data' ) ) {
 				update_post_meta( $post_id, '_question_options', mcq_test()->get_args_option( '_question_options', array(), $posted_data ) );
 				update_post_meta( $post_id, '_question_answers', mcq_test()->get_args_option( '_question_answers', array(), $posted_data ) );
 			}
-
-			echo '<pre>'; print_r( mcq_test()->get_args_option( '_question_options', array(), $posted_data ) ); echo '</pre>';
-
-//			die();
 		}
 
 

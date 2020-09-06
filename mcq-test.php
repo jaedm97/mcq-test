@@ -51,16 +51,11 @@ if ( ! class_exists( 'MultipleChoiceQuestionsMain' ) ) {
 			require_once MCQ_PLUGIN_DIR . 'includes/classes/class-hooks.php';
 			require_once MCQ_PLUGIN_DIR . 'includes/classes/class-functions.php';
 			require_once MCQ_PLUGIN_DIR . 'includes/classes/class-meta-boxes.php';
+			require_once MCQ_PLUGIN_DIR . 'includes/classes/class-columns.php';
+			require_once MCQ_PLUGIN_DIR . 'includes/classes/class-item-data.php';
+			require_once MCQ_PLUGIN_DIR . 'includes/classes/class-item-question.php';
 
 			require_once MCQ_PLUGIN_DIR . 'includes/functions.php';
-
-//			require_once MCQ_PLUGIN_DIR . 'includes/class-post-meta.php';
-			require_once MCQ_PLUGIN_DIR . 'includes/class-post-meta-participant.php';
-			require_once MCQ_PLUGIN_DIR . 'includes/class-shortcodes.php';
-			require_once MCQ_PLUGIN_DIR . 'includes/class-question-column.php';
-			require_once MCQ_PLUGIN_DIR . 'includes/actions/action-single-question.php';
-			require_once MCQ_PLUGIN_DIR . 'templates/single-question-template-functions.php';
-			require_once MCQ_PLUGIN_DIR . 'templates/sidebar.php';
 		}
 
 		/**
@@ -72,7 +67,7 @@ if ( ! class_exists( 'MultipleChoiceQuestionsMain' ) ) {
 
 			return array(
 				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-				'workingText'    => esc_html__( 'Working...', 'mcq-test' ),
+				'workingText' => esc_html__( 'Working...', 'mcq-test' ),
 				'copyText'    => esc_html__( 'Copied !', 'mcq-test' ),
 				'voteText'    => esc_html__( 'Vote(s)', 'mcq-test' ),
 				'confirmText' => esc_html__( 'Do you really wanted to remove this option?', 'mcq-test' ),
@@ -85,19 +80,11 @@ if ( ! class_exists( 'MultipleChoiceQuestionsMain' ) ) {
 		 */
 		function admin_scripts() {
 
+			wp_enqueue_script( 'jquery-ui-sortable' );
 			wp_enqueue_style( 'mcq-admin', MCQ_PLUGIN_URL . 'assets/admin/css/style.css', array(), date( 'H:s' ) );
 
 			wp_enqueue_script( 'mcq-admin', plugins_url( 'assets/admin/js/scripts.js', __FILE__ ), array( 'jquery' ), date( 'H:s' ) );
 			wp_localize_script( 'mcq-admin', 'mcq_object', $this->localize_scripts_data() );
-
-			wp_enqueue_script( 'mcq-back-js', plugins_url( 'resources/back/js/scripts.js', __FILE__ ), array( 'jquery' ) );
-
-			wp_enqueue_style( 'BackAdmin', MCQ_PLUGIN_URL . 'resources/back/css/BackAdmin.css' );
-			wp_enqueue_script( 'BackAdmin', plugins_url( 'resources/back/js/BackAdmin.js', __FILE__ ), array( 'jquery' ) );
-
-			wp_enqueue_style( 'ecom-fonts', MCQ_PLUGIN_URL . 'resources/both/css/font-awesome.css' );
-
-			wp_enqueue_style( 'mcq_admin_style', MCQ_PLUGIN_URL . 'resources/back/css/style.css' );
 		}
 
 
@@ -105,16 +92,10 @@ if ( ! class_exists( 'MultipleChoiceQuestionsMain' ) ) {
 		 * Front scripts
 		 */
 		function front_scripts() {
-			wp_enqueue_style( 'ecom-fonts', MCQ_PLUGIN_URL . 'resources/both/css/font-awesome.css' );
-			wp_enqueue_script( 'ecom-js', plugins_url( '/resources/front/js/scripts.js', __FILE__ ), array( 'jquery' ) );
 
-			wp_enqueue_style( 'ecom-style', MCQ_PLUGIN_URL . 'resources/front/css/style.css' );
-			wp_localize_script( 'ecom-js', 'mcq_ajax', array( 'mcq_ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
-
-			wp_enqueue_style( 'jquery-confirm.min', MCQ_PLUGIN_URL . 'resources/front/css/jquery-confirm.min.css' );
-			wp_enqueue_script( 'jquery-confirm.min', plugins_url( '/resources/front/js/jquery-confirm.min.js', __FILE__ ), array( 'jquery' ) );
-
-			wp_enqueue_script( 'jquery.steps', plugins_url( '/resources/front/js/jquery.steps.js', __FILE__ ), array( 'jquery' ) );
+			wp_enqueue_style( 'mcq-front', MCQ_PLUGIN_URL . 'assets/front/css/style.css', array(), date( 'g:s' ) );
+			wp_enqueue_script( 'mcq-front', plugins_url( 'assets/front/js/scripts.js', __FILE__ ), array( 'jquery' ), date( 'H:s' ) );
+			wp_localize_script( 'mcq-front', 'mcq_object', $this->localize_scripts_data() );
 		}
 
 

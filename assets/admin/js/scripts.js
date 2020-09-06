@@ -9,7 +9,6 @@
         $(".question-options").sortable({revert: true});
     });
 
-
     $(document).on('click', '.mcq-button-admin', function () {
 
         let thisButton = $(this),
@@ -38,7 +37,7 @@
 
 
     $(document).on('change', '.question-option .mcq-option-correct input[type="checkbox"]', function () {
-        $(this).parent().toggleClass('correct');
+        $(this).parent().toggleClass('checked');
     });
 
 })(jQuery, window, document, mcq_object);

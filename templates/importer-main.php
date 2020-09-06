@@ -4,61 +4,57 @@
  */
 
 
-$html_content = mcq_test()->get_args_option( 'html_content', '', $_POST );
-$html_content = stripslashes( $html_content );
-$doc          = new DOMDocument();
+$posted_data = wp_unslash( $_POST );
 
-libxml_use_internal_errors( true );
-$doc->loadHTML( mb_convert_encoding( $html_content, 'HTML-ENTITIES', 'UTF-8' ) );
+if ( wp_verify_nonce( mcq_test()->get_args_option( 'mcq_importer_nonce', '', $posted_data ), 'mcq_importer' ) ) {
+	$question_cat   = mcq_test()->get_args_option( 'q_cat', '', $posted_data );
+	$html_content   = mcq_test()->get_args_option( 'html_content', '', $posted_data );
+//	$questions      = empty( $html_content ) ? array() : mcq_parse_questions_from_html( $html_content );
+	$questions      = empty( $html_content ) ? array() : mcq_parse_questions_from_mcqstudybd( $html_content );
+	$question_count = 0;
 
-$xpath     = new DomXPath( $doc );
-$nodeList  = $xpath->query( '//div[@class="show-question"]' );
-$questions = array();
+	foreach ( $questions as $question ) {
 
-for ( $index = 0; $index < $nodeList->length; $index ++ ) {
+		$title   = mcq_test()->get_args_option( 'title', '', $question );
+		$options = mcq_test()->get_args_option( 'options', array(), $question );
 
-	$this_node  = $nodeList->item( $index );
-	$this_node  = $this_node->ownerDocument->saveHTML( $this_node );
-	$nested_doc = new DOMDocument();
-
-	$nested_doc->loadHTML( mb_convert_encoding( $this_node, 'HTML-ENTITIES', 'UTF-8' ) );
-
-	$nested_xpath = new DomXPath( $nested_doc );
-	$correct_node = $nested_xpath->query( '//li[@class="answer correct-answer"]' );
-	$option_nodes = $nested_xpath->query( '//li[@class="answer"]' );
-	$title_node   = $nested_doc->getElementsByTagName( 'strong' );
-	$options      = array();
-
-	if ( isset( $correct_node->item( 0 )->nodeValue ) ) {
-		foreach ( $option_nodes as $option_node ) {
-			$options[] = array(
-				'value'      => trim( $option_node->nodeValue ),
-				'is_correct' => false,
-			);
+		if ( empty( $title ) || empty( $options ) ) {
+			continue;
 		}
-		$options[] = array(
-			'value'      => trim( $correct_node->item( 0 )->nodeValue ),
-			'is_correct' => true,
-		);
+
+		$question_id = wp_insert_post( array(
+			'post_type'   => 'question',
+			'post_status' => 'publish',
+			'post_title'  => $title,
+			'tax_input'   => array(
+				'question_cat' => $question_cat,
+			),
+			'meta_input'  => array(
+				'_question_options' => $options,
+			),
+		) );
+
+		if ( ! is_wp_error( $question_id ) ) {
+			$question_count ++;
+		}
 	}
 
-	if ( isset( $title_node->item( 0 )->nodeValue ) ) {
-		shuffle( $options );
-		$questions[] = array(
-			'title'   => trim( $title_node->item( 0 )->nodeValue ),
-			'options' => $options,
-		);
-	}
+	mcq_test()->print_notice( sprintf( esc_html__( '%s Questions are added successfully!', 'mcq-test' ), $question_count ) );
 }
 
-echo '<pre>';
-print_r( $questions );
-echo '</pre>';
 
 ?>
-
-<form action="" method="post" accept-charset="utf-8">
-    <textarea name="html_content" cols="30" rows="10"><?php echo $html_content; ?></textarea>
+<br>
+<form action="<?php the_permalink(); ?>" method="post" enctype="application/x-www-form-urlencoded">
+    <select name="q_cat">
+        <option value="">Select Category</option>
+		<?php foreach ( get_terms( array( 'taxonomy' => 'question_cat', 'hide_empty' => false ) ) as $term ) : ?>
+            <option value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+		<?php endforeach; ?>
+    </select>
+    <br> <br>
+    <textarea name="html_content" cols="30" rows="10"></textarea>
     <br><br>
-    <button class="button button-primary" type="submit">Submit</button>
+	<?php wp_nonce_field( 'mcq_importer', 'mcq_importer_nonce' ); ?>
+    <button class="button button-primary" type="submit">Import Questions</button>
 </form>
